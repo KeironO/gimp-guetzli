@@ -1,9 +1,16 @@
-from gimpfu import *
+#from gimpfu import *
 import os
 
 print(os.environ)
 
 
+def do_export(image, drawable, filename, raw_filename,quality, smoothing, ringing_reduction):
+    gimp.progress_init("Exporing %s" % raw_filename)
+
+
+
+def register_save():
+    gimp.register_save_handler("guetzli-save", "jpeg", "jpg")
 
 register (
     proc_name="save-guetzli",
@@ -15,3 +22,4 @@ register (
 
 
 main()
+
