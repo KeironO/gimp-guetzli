@@ -16,7 +16,7 @@ def create_tmpfile_fp():
     tmpfile_fp = tmpfile.name
     tmpfile.close()
     return tmpfile_fp, os.path.basename(tmpfile_fp)
- 
+
 
 def do_export(image, drawable, fp, raw_filename, quality):
 
@@ -24,13 +24,13 @@ def do_export(image, drawable, fp, raw_filename, quality):
 
     tmpfile_fp, tmpfile_name = create_tmpfile_fp()
     pdb.file_png_save(img, img.flatten(), tmpfile_fp, tmpfile_name,  0, 0, 0, 0, 0, 0, 0)
-    
+
     args = [guetzli]
     args.append("--quality %" % str(quality))
     args.append(tmpfile_fp)
     args.append(fp)
-    
-    gim.progress_init("Exporting: %s" % (fp))
+
+    gimp.progress_init("Exporting: %s" % (fp))
 
     output = subprocess.check_output(args)
 
@@ -39,7 +39,7 @@ def do_export(image, drawable, fp, raw_filename, quality):
 
 
 def register_save():
-    gimp.register_save_handler("guetzli-save", "jpeg", "jpg", "")
+    gimp.register_save_handler("save-guetzli", "jpeg,jpg", "")
 
 register (
     proc_name="save-guetzli",
@@ -48,10 +48,10 @@ register (
     author="Keiron O'Shea",
     copyright="MIT",
     date="2019",
-    label="<Save>/JPEG (Guetzli)",
+    label="<Save>/JPEG (Google Guetzli)",
     imagetypes="RGB*, GRAY*",
     params=[
-        (PF_SLIDER, "quality", "Quality", 90, (80, 100, 1))    
+        (PF_SLIDER, "quality", "Quality", 90, (80, 100, 1))
     ],
     results=[],
     function=do_export,
@@ -60,4 +60,3 @@ register (
 
 
 main()
-
