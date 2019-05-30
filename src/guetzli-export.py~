@@ -1,5 +1,7 @@
-from gimpfu import *
+#from gimpfu import *
 import os
+
+print(os.environ)
 
 
 def do_export(image, drawable, filename, raw_filename,quality, smoothing, ringing_reduction):
