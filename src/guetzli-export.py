@@ -3,7 +3,7 @@ import os
 
 
 def do_export(image, drawable, filename, raw_filename,quality, smoothing, ringing_reduction):
-    gimp.progress_init("Exporing %s" % raw_filename)
+    gimp.progress_init("Exporting %s" % raw_filename)
 
 
 
