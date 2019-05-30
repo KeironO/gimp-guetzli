@@ -3,7 +3,6 @@
 from gimpfu import *
 import os
 from tempfile import NamedTemporaryFile as ntf
-import subprocess
 
 try:
     guetzli = os.environ["GUETZLI"]
@@ -32,7 +31,7 @@ def do_export(image, drawable, fp, raw_filename, quality):
     
     gim.progress_init("Exporting: %s" % (fp))
 
-    output = subprocess.check_output(args)
+    output = check_output(args)
 
     pdb.gimp_progress_end()
     pdb.gimp_displays_flush()
