@@ -38,9 +38,6 @@ def do_export(image, drawable, fp, raw_filename, quality):
     pdb.gimp_displays_flush()
 
 
-def register_save():
-    gimp.register_save_handler("save-guetzli", "jpeg,jpg", "")
-
 register (
     proc_name="save-guetzli",
     blurb="Export via Google's Perceptual JPEG encoder",
@@ -48,14 +45,14 @@ register (
     author="Keiron O'Shea",
     copyright="MIT",
     date="2019",
-    label="<Save>/JPEG (Google Guetzli)",
+    label="<Save>/Google Guetzli (JPEG)",
     imagetypes="RGB*, GRAY*",
     params=[
         (PF_SLIDER, "quality", "Quality", 90, (80, 100, 1))
     ],
     results=[],
     function=do_export,
-    on_query=register_save
+    on_query=gimp.register_save_handler("save-guetzli", "jpeg,jpg", "")
 )
 
 
