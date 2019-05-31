@@ -33,7 +33,7 @@ chmod +x ~/.config/GIMP/2.10/plug-ins/guetzli-export.py
 2. Select File Type (By Extension) > Google Guetzli (JPEG)
 3. Change the filename to whatever you want.
 4. Export
-5. Drag the slider to whatever compression quality you want.
+5. Drag the slider to whatever compression quality you want and click export.
 6. ???
 7. PROFIT
 
