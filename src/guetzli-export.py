@@ -18,17 +18,20 @@ def create_tmpfile_fp():
     return tmpfile_fp, os.path.basename(tmpfile_fp)
 
 
-def do_export(image, drawable, fp, raw_filename, quality):
-
+def do_export(image, drawable, fp, raw_filename, _, quality):
+    
     gimp.progress_init('Exporting %s' % raw_filename)
 
     tmpfile_fp, tmpfile_name = create_tmpfile_fp()
-    pdb.file_png_save(img, img.flatten(), tmpfile_fp, tmpfile_name,  0, 0, 0, 0, 0, 0, 0)
+    pdb.file_png_save(image, image.flatten(), tmpfile_fp, tmpfile_name,  0, 0, 0, 0, 0, 0, 0)
 
     args = [guetzli]
-    args.append('--quality %' % str(quality))
+    args.append('--quality')
+    args.append(str(int(quality)))
+
     args.append(tmpfile_fp)
     args.append(fp)
+
 
     gimp.progress_init('Exporting: %s' % (fp))
 
@@ -38,8 +41,11 @@ def do_export(image, drawable, fp, raw_filename, quality):
     pdb.gimp_displays_flush()
 
 
+def register_save():
+    gimp.register_save_handler('file-google-guetzli-save', 'jpeg,jpg', '')
+
 register (
-    proc_name='save-guetzli',
+    proc_name='file-google-guetzli-save',
     blurb='Export via Googles Perceptual JPEG encoder',
     help='Export via Googles Perceptual JPEG encoder',
     author='Keiron OShea',
@@ -48,11 +54,12 @@ register (
     label='<Save>/Google Guetzli (JPEG)',
     imagetypes='RGB*, GRAY*',
     params=[
-        (PF_SLIDER, 'quality', 'Quality', 90, (80, 100, 1))
+        (PF_STRING, 'none', 'None', None),
+        (PF_SLIDER, 'quality', 'Compression Quality', 90, (0, 100, 1))
     ],
     results=[],
     function=do_export,
-    on_query=gimp.register_save_handler('save-guetzli', 'jpeg,jpg', '')
+    on_query=register_save
 )
 
 
