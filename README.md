@@ -14,7 +14,7 @@ Uncompressed 137.3kB:
 
 Compressed 19.4kB:
 
-![Compressed Image](https://github.com/KeironO/gimp-guetzli/raw/master/examples/compressed.jpg)
+![Compressed Image](https://github.com/KeironO/gimp-guetzli/raw/master/examples/compressed.jpeg)
 
 
 ## Installation
