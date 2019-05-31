@@ -20,10 +20,13 @@ def create_tmpfile_fp():
 
 def do_export(image, drawable, fp, raw_filename, _, quality):
     
+    image_copy = pdb.gimp_image_duplicate(image)
+
     gimp.progress_init('Exporting %s' % raw_filename)
 
     tmpfile_fp, tmpfile_name = create_tmpfile_fp()
-    pdb.file_png_save(image, image.flatten(), tmpfile_fp, tmpfile_name,  0, 0, 0, 0, 0, 0, 0)
+    
+    pdb.file_png_save(image_copy, image_copy.flatten(), tmpfile_fp, tmpfile_name,  0, 0, 0, 0, 0, 0, 0)
 
     args = [guetzli]
     args.append('--quality')
@@ -32,13 +35,14 @@ def do_export(image, drawable, fp, raw_filename, _, quality):
     args.append(tmpfile_fp)
     args.append(fp)
 
-
     gimp.progress_init('Exporting: %s' % (fp))
 
     output = subprocess.check_output(args)
 
     pdb.gimp_progress_end()
     pdb.gimp_displays_flush()
+
+    os.remove(tmpfile_fp)
 
 
 def register_save():
