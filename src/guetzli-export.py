@@ -41,6 +41,8 @@ def do_export(image, drawable, fp, raw_filename, _, quality):
 
     pdb.gimp_progress_end()
     pdb.gimp_displays_flush()
+    
+    gimp.delete(image_copy)
 
     os.remove(tmpfile_fp)
 
